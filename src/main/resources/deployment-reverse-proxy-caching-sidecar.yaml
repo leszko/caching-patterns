@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greet
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: greet
+  template:
+    metadata:
+      labels:
+        app: greet
+    spec:
+      initContainers:
+        - name: init-networking
+          image: leszko/init-networking
+          imagePullPolicy: Always
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+            privileged: true
+      containers:
+        - name: caching-proxy
+          image: leszko/caching-proxy
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+        - name: greet
+          image: leszko/greet
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: greet
+spec:
+  type: LoadBalancer
+  selector:
+    app: greet
+  ports:
+    - name: app
+      port: 80
