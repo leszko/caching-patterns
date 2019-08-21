@@ -1,4 +1,4 @@
-package com.leszko.cachingpatterns.spring;
+package com.leszko.cachingpatterns.pattern2plus;
 
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
@@ -9,11 +9,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class HazelcastSidecarConfiguration {
+public class CacheConfiguration {
     @Bean
     CacheManager cacheManager() {
         ClientConfig clientConfig = new ClientConfig();
-        clientConfig.getNetworkConfig().addAddress("localhost:5701");
-        return new HazelcastCacheManager(HazelcastClient.newHazelcastClient(clientConfig));
+        clientConfig.getNetworkConfig().getCloudConfig()
+            .setEnabled(true)
+            .setDiscoveryToken("KSXFDTi5HXPJGR0wRAjLgKe45tvEEhd");
+        clientConfig.setGroupConfig(new GroupConfig("test-cluster", "b2f984b5dd3314"));
+
+        return new HazelcastCacheManager(
+            HazelcastClient.newHazelcastClient(clientConfig));
     }
 }

@@ -1,6 +1,5 @@
-package com.leszko.cachingpatterns.spring;
+package com.leszko.cachingpatterns.pattern2plus;
 
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +12,15 @@ public class BookService {
 
     private String findBookInSlowSource(String isbn) {
         // some long processing
-        return null;
+        sleep();
+        return "Sample Book Name";
     }
 
-    @CacheEvict(value = "someValue", allEntries = true)
-    public void evictAllCacheValues() {}
+    private void sleep() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

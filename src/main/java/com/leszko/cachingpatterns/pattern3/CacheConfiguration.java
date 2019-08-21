@@ -1,4 +1,4 @@
-package com.leszko.cachingpatterns.spring;
+package com.leszko.cachingpatterns.pattern3;
 
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
@@ -8,11 +8,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class HazelcastClientConfiguration {
+public class CacheConfiguration {
     @Bean
     CacheManager cacheManager() {
         ClientConfig clientConfig = new ClientConfig();
-        clientConfig.getNetworkConfig().getKubernetesConfig().setEnabled(true);
+        clientConfig.getNetworkConfig().addAddress("localhost:5701");
         return new HazelcastCacheManager(HazelcastClient.newHazelcastClient(clientConfig));
     }
 }
