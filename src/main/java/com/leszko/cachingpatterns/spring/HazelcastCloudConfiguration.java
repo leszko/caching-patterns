@@ -18,10 +18,10 @@ public class HazelcastCloudConfiguration {
         ClientConfig clientConfig = new ClientConfig();
         clientConfig.getNetworkConfig().getCloudConfig()
             .setEnabled(true)
-            .setDiscoveryToken("KSXFDTc8OX3zxXryD3Zi5HXPJGR0wRAjLgKe45uMce3NtvEEhd");
+            .setDiscoveryToken("EMMUWuADyJuh0d8GiLbdymveoFsjdGUypQKrpVLxBqGRsPblwo");
         clientConfig.setGroupConfig(new GroupConfig(
-            "cluster-name",
-            "b2f929dafdb84ca7b254fc84b5dd3314")
+            "rafal-cluster",
+            "abff7ad094114e3c9992f3584c111271")
         );
 
         return new HazelcastCacheManager(HazelcastClient.newHazelcastClient(clientConfig));
