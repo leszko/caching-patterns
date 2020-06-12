@@ -16,4 +16,9 @@ public class BookController {
     public String getBookNameByIsbn(@PathVariable("isbn") String isbn) {
         return bookService.getBookNameByIsbn(isbn);
     }
+
+    @GetMapping("/first-letter/{isbn}")
+    public String getFirstLetterOfBookByIsbn(@PathVariable("isbn") String isbn) {
+        return bookService.getFirstLetterOfBookByIsbn(isbn);
+    }
 }
